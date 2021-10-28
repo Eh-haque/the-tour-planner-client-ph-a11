@@ -1,0 +1,10 @@
+.banner{
+    background: url(../../Media/banner.jpg) no-repeat center;
+    background-size: cover;
+    width: auto;
+    height: 100vh;
+}
+.banner h2{
+    font-size: 5rem;
+    text-transform: uppercase;
+}
