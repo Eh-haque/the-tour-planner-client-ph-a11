@@ -1,11 +1,10 @@
 import React from 'react';
 import { Button, Card, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const HomeServices = ({ tourPlan }) => {
     const { img, title, desc, date, _id } = tourPlan;
-    const handleButtonClick = (id) => {
-        console.log(id);
-    }
+    
     return (
         <Col>
             <Card className='h-100 shadow-lg'>
@@ -17,7 +16,7 @@ const HomeServices = ({ tourPlan }) => {
                     </Card.Text>
                     <p>Date: {date ? date : 'Not Found'}</p>
                 </Card.Body>
-                <Button onClick={() => handleButtonClick(_id)}>Book Now</Button>
+                <Button as={Link} to={`/place_order/${_id}`} >Book Now</Button>
             </Card>
         </Col>
     );

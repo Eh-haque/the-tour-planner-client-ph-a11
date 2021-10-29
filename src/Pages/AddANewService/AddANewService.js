@@ -1,11 +1,14 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
+import useAuth from '../../Hooks/useAuth';
 
 
 const AddANewService = () => {
-    const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
+    const {user} = useAuth()
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
+        data.owner = user?.email;
         fetch('http://localhost:5000/add_plan', {
             method: "POST",
             headers: { "content-type": "application/json" },

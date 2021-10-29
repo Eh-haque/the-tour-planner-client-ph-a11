@@ -56,7 +56,7 @@ const Footer = () => {
                     </Col>
                 </Row>
                 <p>Copyright © 2021 Geek Code Lab. All Rights Reserved.</p>
-                <p className='m-0 pb-2'>Privacy Policy || Terms of Use Cookie Policy</p>
+                <p className='m-0 pb-2'>Privacy Policy || Terms of Use || Cookie Policy</p>
             </Container>
         </div>
     );

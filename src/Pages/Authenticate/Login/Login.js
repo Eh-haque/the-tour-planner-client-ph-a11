@@ -2,10 +2,10 @@ import React from 'react';
 import { useState } from 'react';
 import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import useFirebase from '../../../Hooks/useFirebase'
+import useAuth from '../../../Hooks/useAuth';
 const Login = () => {
 
-    const { handleGoogleLogin, handleGithubLogin, handleUserLogin, error, setError } = useFirebase();
+    const { handleGoogleLogin, handleGithubLogin, handleUserLogin, error, setError } = useAuth();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -14,8 +14,8 @@ const Login = () => {
     const location = useLocation();
     const history = useHistory();
     const redirect_uri = location.state?.from || '/';
-    const githubLogin = () => {
-        handleGithubLogin()
+    const googleLogin = () => {
+        handleGoogleLogin()
             .then((result) => {
                 history.push(redirect_uri)
                 // setUser(result.user);
@@ -73,10 +73,10 @@ const Login = () => {
                         </div><hr />
                         <Link to='/register' className='mb-3 rounded p-2 border mt-3'>New User? Click to Register</Link>
                         <div className="login-btn mt-4">
-                            <Button variant='primary' onClick={handleGoogleLogin} className="me-2 mb-2">
+                            <Button variant='primary' onClick={googleLogin} className="me-2 mb-2">
                                 Google sign in
                             </Button>
-                            <Button variant='success' onClick={githubLogin} className='mb-2'>
+                            <Button variant='success' onClick={handleGithubLogin} className='mb-2'>
                                 Github sign in
                             </Button>
                         </div><hr />
