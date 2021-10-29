@@ -9,6 +9,7 @@ const AddANewService = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         data.owner = user?.email;
+        data.status = 'pending';
         fetch('http://localhost:5000/add_plan', {
             method: "POST",
             headers: { "content-type": "application/json" },

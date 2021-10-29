@@ -16,7 +16,7 @@ const ManageAllOrders = () => {
                 <Row>
                     <Col>
                         <h2>Manage All Orders</h2>
-                        <Table striped bordered hover>
+                        <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
                                     <th>#</th>

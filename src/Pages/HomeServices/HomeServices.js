@@ -3,8 +3,8 @@ import { Button, Card, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const HomeServices = ({ tourPlan }) => {
-    const { img, title, desc, date, _id } = tourPlan;
-    
+    const { img, title, desc, date, _id, status } = tourPlan;
+
     return (
         <Col>
             <Card className='h-100 shadow-lg'>
@@ -14,7 +14,10 @@ const HomeServices = ({ tourPlan }) => {
                     <Card.Text>
                         {desc}
                     </Card.Text>
-                    <p>Date: {date ? date : 'Not Found'}</p>
+                    <div className='d-flex justify-content-evenly'>
+                        <p>Status: {status ? status : 'pre_pending'}</p>
+                        <p>Date: {date ? date : 'Not Found'}</p>
+                    </div>
                 </Card.Body>
                 <Button as={Link} to={`/place_order/${_id}`} >Book Now</Button>
             </Card>

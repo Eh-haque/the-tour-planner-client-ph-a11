@@ -2,16 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { Button, Col, Container, Image, Row } from 'react-bootstrap';
 import { Link, useParams } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import { useForm } from "react-hook-form";
 
 const PlaceOrder = () => {
-    const {user} = useAuth();
-    console.log(user);
-    const { id } = useParams()
+    const { user } = useAuth();
+    const { id } = useParams();
+    // console.log(user, id);
 
-    const [orders, setOrders] = useState([]);
+
+    // const [orders, setOrders] = useState([]);
     const [order, setOrder] = useState({})
 
     useEffect(() => {
+        fetch(`http://localhost:5000/add_plan/${id}`)
+            .then(res => res.json())
+            .then(data => setOrder(data))
+    }, [id])
+
+    /* useEffect(() => {
         fetch('http://localhost:5000/add_plan')
             .then(res => res.json())
             .then(data => setOrders(data))
@@ -22,18 +30,70 @@ const PlaceOrder = () => {
         console.log(orders);
         console.log(foundOrder);
         setOrder(foundOrder);
-    }, [id, orders]);
+    }, [id, orders]); */
+
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const onSubmit = data => {
+        data.owner = user?.email;
+        data.status = 'pending';
+        data.order = { order }
+        fetch('http://localhost:5000/my_orders', {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(data)
+        })
+            .then(res => res.json())
+            .then(result => console.log(result))
+        console.log(data);
+        reset();
+    };
 
     return (
         <Container className='my-5'>
             <Row>
-                <Col>
+                <Col md={8}>
+                    <div className='d-flex justify-content-evenly bg-primary  text-white pt-2 rounded mb-5'>
+                        <p>User Name : {user?.displayName}</p>
+                        <p>User Email : {user?.email}</p>
+                    </div>
                     <h2 className='text-success'>{order?.title?.toUpperCase()}</h2><hr />
                     <div className=' my-5'>
                         <Image fluid className='p-5' src={order?.img} />
-                        <div><h3 className='p-5'>{order?.desc}</h3><Button variant='outline-success'>Book Now</Button></div>
+                        <div><h3 className='p-5'>{order?.desc}</h3></div>
                     </div>
+                    <Button as={Link} to={'/shipping'} variant='outline-primary'>Proceed to Order</Button> <br /><hr />
                     <Button as={Link} to='/' variant='success'>Back To Home</Button>
+                </Col>
+                <Col md={4}>
+                    <h2 className='pt-5 pb-3'>Add your Information</h2>
+                    <div className='d-flex align-items-center justify-content-center shadow-lg p-5 rounded'>
+                        <form className='w-50' onSubmit={handleSubmit(onSubmit)}>
+
+                            <div className='mb-3'>
+                                <input defaultValue={user?.displayName} className='form-control' placeholder='Your Name' {...register("name", { required: true })} />
+                            </div>
+
+                            <div className='mb-3'>
+                                <input className='form-control' placeholder='Your Location' {...register("location", { required: true })} />
+                            </div>
+
+                            <div className='mb-3'>
+                                <input className='form-control' placeholder='Phone Number' {...register("phone", { required: true })} />
+                            </div>
+
+                            <div className='mb-3'>
+                                <input defaultValue='43543' className='form-control' placeholder='Tour Cost' {...register("cost", { required: true })} />
+                            </div>
+
+                            <div className='mb-3'>
+                                <input className='form-control' type="date" {...register('date')} />
+                            </div>
+
+                            {errors.email && <span>This field is required</span>}
+
+                            <input className='btn btn-success' type="submit" value='Add Tour Plan' />
+                        </form>
+                    </div>
                 </Col>
             </Row>
         </Container>

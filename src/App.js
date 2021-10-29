@@ -13,6 +13,7 @@ import Login from './Pages/Authenticate/Login/Login';
 import NotFound from './Pages/NotFound/NotFound';
 import PrivateRoute from './Pages/Authenticate/PrivateRoute/PrivateRoute';
 import AuthProvider from './Context/AuthProvider';
+import Shipping from './Pages/Shipping/Shipping';
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
             </Route>
             <PrivateRoute path='/place_order/:id'>
               <PlaceOrder></PlaceOrder>
+            </PrivateRoute>
+            <PrivateRoute path='/shipping'>
+              <Shipping></Shipping>
             </PrivateRoute>
             <Route path='/login'>
               <Login></Login>
