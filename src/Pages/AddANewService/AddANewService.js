@@ -10,7 +10,7 @@ const AddANewService = () => {
     const onSubmit = data => {
         data.owner = user?.email;
         data.status = 'pending';
-        fetch('http://localhost:5000/add_plan', {
+        fetch('https://protected-reef-66544.herokuapp.com/add_plan', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(data)
@@ -40,6 +40,10 @@ const AddANewService = () => {
 
                         <div className='mb-3'>
                             <input className='form-control' placeholder='Short Description' {...register("desc", { required: true })} />
+                        </div>
+
+                        <div className='mb-3'>
+                            <input className='form-control' placeholder='Plan Cost' {...register("cost", { required: true })} />
                         </div>
 
                         <div className='mb-3'>

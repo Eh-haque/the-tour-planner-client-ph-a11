@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     const [tourPlans, setTourPlans] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/add_plan')
+        fetch('https://protected-reef-66544.herokuapp.com/add_plan')
             .then(res => res.json())
             .then(data => setTourPlans(data))
     }, []);

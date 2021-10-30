@@ -11,7 +11,7 @@ const MyOrders = () => {
 
     useEffect(() => {
         // fetch('http://localhost:5000/add_plan')
-        fetch('http://localhost:5000/my_orders')
+        fetch('https://protected-reef-66544.herokuapp.com/my_orders')
             .then(res => res.json())
             .then(data => setOrders(data))
     }, []);
@@ -27,7 +27,7 @@ const MyOrders = () => {
     const handleDeleteUser = id => {
         const proceed = window.confirm('Are you sure, you want to delete?');
         if (proceed) {
-            fetch(`http://localhost:5000/add_plan/${id}`, {
+            fetch(`https://protected-reef-66544.herokuapp.com/my_orders/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -46,13 +46,14 @@ const MyOrders = () => {
             <Container>
                 <Row>
                     <Col>
-                        <h2>Manage All Orders</h2>
+                        <h2>My Orders</h2>
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Id</th>
                                     <th>Status</th>
                                     <th>Update</th>
                                     <th>Delete</th>
@@ -65,6 +66,7 @@ const MyOrders = () => {
                                             <td>{index + 1}</td>
                                             <td>{order.title}</td>
                                             <td>{order.owner}</td>
+                                            <td>{order._id}</td>
                                             <td>{order.status}</td>
                                             <td><Button>Update</Button></td>
                                             <td><Button variant='danger' onClick={() => handleDeleteUser(order._id)

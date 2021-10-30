@@ -14,7 +14,7 @@ const PlaceOrder = () => {
     const [order, setOrder] = useState({})
 
     useEffect(() => {
-        fetch(`http://localhost:5000/add_plan/${id}`)
+        fetch(`https://protected-reef-66544.herokuapp.com/add_plan/${id}`)
             .then(res => res.json())
             .then(data => setOrder(data))
     }, [id])
@@ -37,7 +37,7 @@ const PlaceOrder = () => {
         data.owner = user?.email;
         data.status = 'pending';
         data.order = { order }
-        fetch('http://localhost:5000/my_orders', {
+        fetch('https://protected-reef-66544.herokuapp.com/my_orders', {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(data)
@@ -59,9 +59,12 @@ const PlaceOrder = () => {
                     <h2 className='text-success'>{order?.title?.toUpperCase()}</h2><hr />
                     <div className=' my-5'>
                         <Image fluid className='p-5' src={order?.img} />
-                        <div><h3 className='p-5'>{order?.desc}</h3></div>
+                        <div>
+                            <h3 className='p-5'>{order?.desc}</h3>
+                            <p>Plan Cost: {order?.cost}</p>
+                        </div>
                     </div>
-                    <Button as={Link} to={'/shipping'} variant='outline-primary'>Proceed to Order</Button> <br /><hr />
+                    {/* <Button as={Link} to={'/shipping'} variant='outline-primary'>Proceed to Order</Button> <br /><hr /> */}
                     <Button as={Link} to='/' variant='success'>Back To Home</Button>
                 </Col>
                 <Col md={4}>
@@ -82,7 +85,7 @@ const PlaceOrder = () => {
                             </div>
 
                             <div className='mb-3'>
-                                <input defaultValue='43543' className='form-control' placeholder='Tour Cost' {...register("cost", { required: true })} />
+                                <input defaultValue={order?.cost} className='form-control' placeholder='Tour Cost' {...register("cost", { required: true })} />
                             </div>
 
                             <div className='mb-3'>
