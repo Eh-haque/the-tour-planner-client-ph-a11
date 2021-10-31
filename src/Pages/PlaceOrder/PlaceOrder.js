@@ -53,49 +53,51 @@ const PlaceOrder = () => {
             <Row>
                 <Col md={8}>
                     <div className='d-flex justify-content-evenly bg-primary  text-white pt-2 rounded mb-5'>
-                        <p>User Name : {user?.displayName}</p>
-                        <p>User Email : {user?.email}</p>
+                        <p>User Name : {order?.owner_name}</p>
+                        <p>Owner Email : {order?.owner}</p>
                     </div>
                     <h2 className='text-success'>{order?.title?.toUpperCase()}</h2><hr />
                     <div className=' my-5'>
-                        <Image fluid className='p-5' src={order?.img} />
+                        <Image fluid src={order?.img} />
                         <div>
-                            <h3 className='p-5'>{order?.desc}</h3>
-                            <p>Plan Cost: {order?.cost}</p>
+                            <p className='p-5' style={{ 'textAlign': 'justify' }}>{order?.desc}</p>
+                            <p>Plan Cost: ${order?.cost}</p>
                         </div>
                     </div>
                     {/* <Button as={Link} to={'/shipping'} variant='outline-primary'>Proceed to Order</Button> <br /><hr /> */}
                     <Button as={Link} to='/' variant='success'>Back To Home</Button>
                 </Col>
-                <Col md={4}>
-                    <h2 className='pt-5 pb-3'>Add your Information</h2>
-                    <div className='d-flex align-items-center justify-content-center shadow-lg p-5 rounded'>
-                        <form className='w-50' onSubmit={handleSubmit(onSubmit)}>
+                <Col md={4} >
+                    <div style={{ 'position': 'sticky', 'top': 0, }}>
+                        <h2 className='pt-5 pb-3'>Add your Information</h2>
+                        <div className='d-flex align-items-center justify-content-center shadow-lg p-5 rounded'>
+                            <form className='w-50' onSubmit={handleSubmit(onSubmit)}>
 
-                            <div className='mb-3'>
-                                <input defaultValue={user?.displayName} className='form-control' placeholder='Your Name' {...register("name", { required: true })} />
-                            </div>
+                                <div className='mb-3'>
+                                    <input defaultValue={user?.displayName} className='form-control' placeholder='Your Name' {...register("name", { required: true })} />
+                                </div>
 
-                            <div className='mb-3'>
-                                <input className='form-control' placeholder='Your Location' {...register("location", { required: true })} />
-                            </div>
+                                <div className='mb-3'>
+                                    <input className='form-control' placeholder='Your Location' {...register("location", { required: true })} />
+                                </div>
 
-                            <div className='mb-3'>
-                                <input className='form-control' placeholder='Phone Number' {...register("phone", { required: true })} />
-                            </div>
+                                <div className='mb-3'>
+                                    <input type='number' className='form-control' placeholder='Phone Number' {...register("phone", { required: true })} />
+                                </div>
 
-                            <div className='mb-3'>
-                                <input defaultValue={order?.cost} className='form-control' placeholder='Tour Cost' {...register("cost", { required: true })} />
-                            </div>
+                                <div className='mb-3'>
+                                    <input defaultValue={order?.cost} className='form-control' placeholder='Tour Cost' {...register("cost", { required: true })} />
+                                </div>
 
-                            <div className='mb-3'>
-                                <input className='form-control' type="date" {...register('date')} />
-                            </div>
+                                <div className='mb-3'>
+                                    <input className='form-control' type="date" {...register('date')} />
+                                </div>
 
-                            {errors.email && <span>This field is required</span>}
+                                {errors.email && <span>This field is required</span>}
 
-                            <input className='btn btn-success' type="submit" value='Add Tour Plan' />
-                        </form>
+                                <input className='btn btn-success' type="submit" value='Add Tour Plan' />
+                            </form>
+                        </div>
                     </div>
                 </Col>
             </Row>

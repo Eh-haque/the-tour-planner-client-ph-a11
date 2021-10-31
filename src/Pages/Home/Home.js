@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { Button, Col, Container, Image, Row } from 'react-bootstrap';
+import { Button, Col, Container, Image, Row, Spinner } from 'react-bootstrap';
 import HomeServices from '../HomeServices/HomeServices';
 import './Home.css';
 import { FaAmericanSignLanguageInterpreting, FaExchangeAlt, FaFly, FaSearchLocation } from 'react-icons/fa';
@@ -9,11 +9,19 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     const [tourPlans, setTourPlans] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
+        setIsLoading(true);
         fetch('https://protected-reef-66544.herokuapp.com/add_plan')
             .then(res => res.json())
             .then(data => setTourPlans(data))
+            .finally(() => setIsLoading(false));
     }, []);
+
+    if (isLoading) {
+        return <Spinner animation='border' variant='danger' />
+    }
 
     return (
         <div>
@@ -25,14 +33,15 @@ const Home = () => {
             <Container>
                 {/* main offering min-6* + spinner */}
                 <h2 className='pt-5'>Tour Plans</h2>
-                <Row className='py-5 g-5' xs={1} md={2} lg={3}>
+
+                <Row className='py-5' xs={1} md={2} lg={3}>
                     {
                         tourPlans.map(tourPlan => <HomeServices tourPlan={tourPlan} key={tourPlan._id} />)
                     }
                 </Row>
 
                 {/* two extra section */}
-                <div className='mb-5'>
+                <div className='my-5'>
                     <h4>Plan your Trip</h4>
                     <h2 className='pb-3'>to Bangladesh</h2>
                     <Row xs={1} md={2} lg={4} className='g-3'>
@@ -73,7 +82,7 @@ const Home = () => {
                     <Button className='mt-4' as={Link} to='/add_new_service'>Start Planning</Button>
                 </div>
 
-                <div className='pb-5'>
+                <div className='py-5'>
                     <h4>About us</h4>
                     <h2 className='pb-3'>Plan Your Trip with Us</h2>
                     <Row className='align-items-center'>
@@ -81,7 +90,7 @@ const Home = () => {
                             <Image className='img-fluid' src='https://html.geekcodelab.com/holiday-planners/assets/images/destination-img1.jpg'></Image>
                         </Col>
                         <Col md={12} lg={6}>
-                            <p className='ps-5'>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic. Italic Mountains, she had a last view back on the skyline</p>
+                            <p style={{ 'textAlign': 'justify' }}>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic. Italic Mountains, she had a last view back on the skyline</p>
                             <Button>Read More</Button>
                         </Col>
                     </Row>

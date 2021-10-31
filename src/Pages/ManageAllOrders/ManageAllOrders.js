@@ -23,7 +23,7 @@ const ManageAllOrders = () => {
     const handleDeleteUser = id => {
         const proceed = window.confirm('Are you sure, you want to Delete?');
         if (proceed) {
-            fetch(`http://localhost:5000/my_orders/${id}`, {
+            fetch(`https://protected-reef-66544.herokuapp.com/my_orders/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => res.json())
@@ -42,7 +42,7 @@ const ManageAllOrders = () => {
         const proceed = window.confirm('Are you sure, you want to Approve?');
         if (proceed) {
 
-            fetch(`http://localhost:5000/my_orders/${id}`, {
+            fetch(`https://protected-reef-66544.herokuapp.com/my_orders/${id}`, {
                 method: 'PUT',
                 headers: {
                     'content-type': 'application/json'
@@ -66,10 +66,10 @@ const ManageAllOrders = () => {
 
     return (
         <div>
-            <Container>
+            <Container className='my-5 shadow-lg rounded p-5'>
                 <Row>
                     <Col>
-                        <h2>Manage All Orders</h2>
+                        <h2 className='border-bottom pb-3'>Manage All Orders</h2>
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
@@ -81,17 +81,13 @@ const ManageAllOrders = () => {
                                     <th>Delete</th>
                                 </tr>
                             </thead>
-                            {/* {
-                    orders.map(order => {
-                        order._id
-                    })
-                } */}
+                            
                             {
                                 orders?.map((order, index) =>
                                     <tbody key={order._id}>
                                         <tr>
                                             <td>{index + 1}</td>
-                                            <td>{order.title}</td>
+                                            <td>{order?.order?.order?.title}</td>
                                             <td>{order.owner}</td>
                                             <td>{order.status}</td>
                                             <td>{order.status === "Approved" ?

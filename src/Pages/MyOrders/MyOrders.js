@@ -10,7 +10,6 @@ const MyOrders = () => {
     const [order, setOrder] = useState([]);
 
     useEffect(() => {
-        // fetch('http://localhost:5000/add_plan')
         fetch('https://protected-reef-66544.herokuapp.com/my_orders')
             .then(res => res.json())
             .then(data => setOrders(data))
@@ -18,7 +17,7 @@ const MyOrders = () => {
 
     useEffect(() => {
         const foundOrder = orders.filter(order => order?.owner === user?.email);
-        console.log(foundOrder);
+        // console.log(foundOrder);
         setOrder(foundOrder);
     }, [user?.email, setOrder?.owner, orders]);
 
@@ -43,10 +42,10 @@ const MyOrders = () => {
 
     return (
         <div>
-            <Container>
+            <Container className='my-5 shadow-lg p-5'>
                 <Row>
                     <Col>
-                        <h2>My Orders</h2>
+                        <h2 className='pb-3 border-bottom'>My Orders</h2>
                         <Table striped bordered hover responsive>
                             <thead>
                                 <tr>
@@ -61,15 +60,15 @@ const MyOrders = () => {
                             </thead>
                             {
                                 order?.map((order, index) =>
-                                    <tbody key={order._id}>
+                                    <tbody key={order?._id}>
                                         <tr>
                                             <td>{index + 1}</td>
-                                            <td>{order.title}</td>
-                                            <td>{order.owner}</td>
-                                            <td>{order._id}</td>
-                                            <td>{order.status}</td>
+                                            <td>{order?.order?.order?.title}</td>
+                                            <td>{order?.owner}</td>
+                                            <td>{order?._id}</td>
+                                            <td>{order?.status}</td>
                                             <td><Button>Update</Button></td>
-                                            <td><Button variant='danger' onClick={() => handleDeleteUser(order._id)
+                                            <td><Button variant='danger' onClick={() => handleDeleteUser(order?._id)
                                             }>Delete</Button></td>
                                         </tr>
                                     </tbody>

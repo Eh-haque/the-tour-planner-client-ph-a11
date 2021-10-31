@@ -4,9 +4,7 @@ import {
     GoogleAuthProvider,
     GithubAuthProvider,
     onAuthStateChanged,
-    signOut,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword, updateProfile
+    signOut
 } from "firebase/auth";
 
 import { useEffect, useState } from "react";
@@ -25,7 +23,7 @@ const useFirebase = () => {
     const [name, setName] = useState("");
     const [isLoading, setIsLoading] = useState(true);
 
-
+    // redirect
     const handleGoogleLogin = () => {
         setIsLoading(true);
         return signInWithPopup(auth, googleProvider)
@@ -41,13 +39,14 @@ const useFirebase = () => {
 
     // redirect
     const handleGithubLogin = () => {
+        setIsLoading(true)
         return signInWithPopup(auth, githubProvider)
             /* .then((result) => {
                 setUser(result.user);
                 console.log(result.user);
                 setError("");
             }) */
-            .catch((error) => setError(error.message));
+            .finally(() => setIsLoading(false));
     };
 
     useEffect(() => {
@@ -77,66 +76,64 @@ const useFirebase = () => {
         // });
     };
 
-    const handleUserRegister = (email, password, name) => {
-        // console.log(name);
-        if (name.length < 3) {
-            setError('Please enter your name with greater then 3 character')
-            return
-        }
-        if (password.length < 6) {
-            setError('Password must be at least Six characters')
-            return;
-        }
-        else if (!/(?=.*[!@#$&*])/.test(password)) {
-            setError('Password must contain two special case letter')
-            return;
-        }
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((result) => {
-                setUser(result.user);
-                console.log(result.user);
-                setError('');
-                setUserName();
-            })
-            .catch((error) => {
-                setError(error.message);
-                // const errorMessage = error.message;
-            });
-    };
+    // const handleUserRegister = (email, password, name) => {
+    //     // console.log(name);
+    //     if (name.length < 3) {
+    //         setError('Please enter your name with greater then 3 character')
+    //         return
+    //     }
+    //     if (password.length < 6) {
+    //         setError('Password must be at least Six characters')
+    //         return;
+    //     }
+    //     else if (!/(?=.*[!@#$&*])/.test(password)) {
+    //         setError('Password must contain two special case letter')
+    //         return;
+    //     }
+    //     createUserWithEmailAndPassword(auth, email, password)
+    //         .then((result) => {
+    //             setUser(result.user);
+    //             console.log(result.user);
+    //             setError('');
+    //             setUserName();
+    //         })
+    //         .catch((error) => {
+    //             setError(error.message);
+    //             // const errorMessage = error.message;
+    //         });
+    // };
 
     // set name
-    const setUserName = () => {
-        updateProfile(auth.currentUser, { displayName: name })
-            .then(result => {
-                // Profile updated!
-            })
-            .catch((error) => {
-                setError(error.message)
-            })
-    }
+    // const setUserName = () => {
+    //     updateProfile(auth.currentUser, { displayName: name })
+    //         .then(result => {
+    //             // Profile updated!
+    //         })
+    //         .catch((error) => {
+    //             setError(error.message)
+    //         })
+    // }
 
-    // for login
-    const handleUserLogin = (email, password) => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((result) => {
-                setUser(result.user);
-                console.log(result.user);
-                setError('');
-            })
-            .catch((error) => {
-                setError(error.message);
-                // const errorMessage = error.message;
-            });
-        // .finally(() => setIsLoading(false));
-    };
+    // // for login
+    // const handleUserLogin = (email, password) => {
+    //     signInWithEmailAndPassword(auth, email, password)
+    //         .then((result) => {
+    //             setUser(result.user);
+    //             console.log(result.user);
+    //             setError('');
+    //         })
+    //         .catch((error) => {
+    //             setError(error.message);
+    //             // const errorMessage = error.message;
+    //         });
+    //     // .finally(() => setIsLoading(false));
+    // };
 
     return {
         handleGoogleLogin,
         user,
         handleGithubLogin,
         handleLogout,
-        handleUserRegister,
-        handleUserLogin,
         setName,
         isLoading,
         error,
