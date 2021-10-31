@@ -55,7 +55,7 @@ const ManageAllOrders = () => {
                         alert('Approved Successfully')
                     }
                     if (data.modifiedCount === 0) {
-                        alert('Already Approved')
+                        alert('Already Approved, please reload to see updated status')
                     }
                     // const remainingorders = orders.push(user => user._id === id);
                     // setOrders(remainingorders);

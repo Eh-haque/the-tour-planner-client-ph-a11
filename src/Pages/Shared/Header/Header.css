@@ -2,5 +2,6 @@
   color: white;
 }
 .navbar-light .navbar-nav .nav-link:hover {
-  color: #0d6efd;
+  border-bottom: 1px inset #dc3545;
+  border-top: 1px outset #dc3545;
 }

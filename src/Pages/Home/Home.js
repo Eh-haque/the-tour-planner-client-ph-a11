@@ -34,7 +34,7 @@ const Home = () => {
                 {/* main offering min-6* + spinner */}
                 <h2 className='pt-5'>Tour Plans</h2>
 
-                <Row className='py-5' xs={1} md={2} lg={3}>
+                <Row className='pb-5' xs={1} md={2} lg={3}>
                     {
                         tourPlans.map(tourPlan => <HomeServices tourPlan={tourPlan} key={tourPlan._id} />)
                     }

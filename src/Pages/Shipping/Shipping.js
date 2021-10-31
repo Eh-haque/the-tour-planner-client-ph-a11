@@ -12,7 +12,7 @@ const Shipping = () => {
         data.name = data?.title;
         console.log(data);
 
-        fetch('https://protected-reef-66544.herokuapp.com/my_orders', {
+        fetch('https://protected-reef-66544.herokuapp.com/my_order', {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify(data)

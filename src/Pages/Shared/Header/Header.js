@@ -17,9 +17,15 @@ const Header = () => {
                             <Nav.Item>
                                 <Nav.Link as={Link} eventKey="first" to="/">Home</Nav.Link>
                             </Nav.Item>
+
                             <Nav.Link as={Link} eventKey="second" to="/my_orders">My Orders</Nav.Link>
-                            <Nav.Link as={Link} eventKey="third" to="/manage_all_orders">Manage All Orders</Nav.Link>
-                            <Nav.Link as={Link} eventKey="fourth" to="/add_new_service">Manage Plans</Nav.Link>
+                            {user?.email ?
+                                <>
+                                    <Nav.Link as={Link} eventKey="third" to="/manage_all_orders">Manage All Orders</Nav.Link>
+                                    <Nav.Link as={Link} eventKey="fourth" to="/add_new_service">Manage Plans</Nav.Link>
+                                </> :
+                                ''
+                            }
                             {/* <Nav.Link as={Link} to="/place_order/:id">Place Order</Nav.Link> */}
                             {user?.email ?
                                 <Button variant='danger' className='text-white navStyle rounded' onClick={handleLogout}><h5>Logout {user?.displayName ? user?.displayName : user?.email}</h5></Button> :
