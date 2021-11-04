@@ -7,6 +7,7 @@ import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 const AddANewService = () => {
     const { user } = useAuth()
     const [orders, setPlans] = useState([]);
+    const [addedPlan, setAddedPlan] = useState({});
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
@@ -18,9 +19,15 @@ const AddANewService = () => {
             body: JSON.stringify(data)
         })
             .then(res => res.json())
-            .then(result => console.log(result))
+            .then(result => {
+                setAddedPlan(data);
+                console.log(result);
+            })
+
         console.log(data);
         reset();
+
+        window.alert('Successfully Added Order');
     };
 
     // const [plans, setPlans] = useState([])
@@ -29,7 +36,7 @@ const AddANewService = () => {
         fetch('https://protected-reef-66544.herokuapp.com/add_plan')
             .then(res => res.json())
             .then(data => setPlans(data))
-    }, []);
+    }, [addedPlan]);
 
     // delete an user
     const handleDeleteUser = id => {
@@ -87,7 +94,7 @@ const AddANewService = () => {
                 </Row>
 
                 {/* delete plan */}
-                <Row  className='my-5 rounded shadow-lg p-5'>
+                <Row className='my-5 rounded shadow-lg p-5'>
                     <Col>
                         <h2 className='border-bottom pb-3'>Manage All Orders</h2>
                         <Table striped bordered hover responsive>

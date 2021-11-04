@@ -46,6 +46,8 @@ const PlaceOrder = () => {
             .then(result => console.log(result))
         console.log(data);
         reset();
+
+        window.alert('Successfully Added Order');
     };
 
     return (
