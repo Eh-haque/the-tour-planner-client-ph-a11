@@ -5,13 +5,13 @@ import { Button, Col, Container, Row, Table } from 'react-bootstrap';
 
 const ManageAllOrders = () => {
     const [orders, setOrders] = useState([]);
-    // const [plans, setPlans] = useState([])
+    const [approved, setApproved] = useState({});
 
     useEffect(() => {
         fetch('https://protected-reef-66544.herokuapp.com/my_orders')
             .then(res => res.json())
             .then(data => setOrders(data))
-    }, []);
+    }, [approved]);
 
     // useEffect(()=>{
     //     fetch('https://protected-reef-66544.herokuapp.com/my_orders')
@@ -52,6 +52,7 @@ const ManageAllOrders = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.modifiedCount > 0) {
+                        setApproved(data.modifiedCount)
                         alert('Approved Successfully')
                     }
                     if (data.modifiedCount === 0) {
